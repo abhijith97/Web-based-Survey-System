@@ -1,0 +1,38 @@
+<% provide(:title, 'All surveys') %>
+<h1>All surveys</h1>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+     <th>S.No</th>
+     <th>Survey Name</th>
+     <% if logged_in? && admin_user? %>
+     <th>Edit</th>
+     <th>Delete</th>
+     <%end%>
+   </tr>
+ </thead>
+ 
+ <%num =1 %>
+ <% @surveys.each do |survey| %>	
+ <tbody>
+  <tr>
+    <td><%=num%></td>
+    <td><a href="survey/<%=survey.id%>"><%=survey.name%></a></td>
+    <% if logged_in? && admin_user? %>
+    <th><a data-method="patch" href='/survey/<%=survey.id%>/edit'><button class="btn btn-primary">Edit</button></a></th>
+    <th><a data-confirm="Are you sure?" data-method="delete" href='/survey/<%= survey.id%>'><button class="btn btn-primary">Delete</button></a></th>
+    <%end%>
+  </tr>
+  <%num+=1%>
+  <%end%>
+</tbody>
+</table>
+
+
+
+
+
+</ul>
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%=(yield(:title)) %></title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
+    <body>
+     <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "Survey Blog", root_path, id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home", root_path %></li>
+
+            <li><a href= "/survey" >Surveys</a></li>
+
+            <% if logged_in? and admin_user? %>
+            <li><a href= "/surveycreate" >Add A Survey</a></li>
+            <li><%= link_to "Graph", controller:'chart', action:'index' %></li>
+            <li><a href= "/display_responses" >View responses</a></li>
+            <%end%>
+
+            <% if logged_in? %>
+            <li><%= link_to "Users", users_path %></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_user %></li>
+                <li><%= link_to "Update Profile", edit_user_path(current_user) %></li>
+                <li><%= link_to "Delete Profile", controller: 'users', action: 'destroy', id: current_user.id %></li>
+
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out", logout_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+            <% else %>
+            <li><%= link_to "Log in", login_path %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+  </html>

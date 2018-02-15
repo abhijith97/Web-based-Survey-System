@@ -1,0 +1,59 @@
+<% provide(:title, @survey.name) %>
+<h1><%= @survey.name%></h1>
+
+
+<form accept-charset="UTF-8" action="/add_question" class="new_user" id="new_user" method="post">
+
+	<input name="utf8" type="hidden" value="&#x2713;" />
+	<input name="authenticity_token" type="hidden"
+	value="NNb6+J/j46LcrgYUC60wQ2titMuJQ5lLqyAbnbAUkdo=" />
+
+	<h4>Question Category:</h4>
+	<select id="cat" name="question[category]" onchange=" mcq_or_box()" onload="mcq_or_box()">
+		<option value="normal">Text Box</option>
+		<option value="mcq_s">Single Correct</option>
+		<option value="mcq_m">Multiple Correct</option>
+	</select>
+	<div id="question">
+		<h4>Question:</h4>
+		<input type="text" name="question[desc]" id="desc" />
+	</div>
+
+	<div id="mcq" style="visibility:hidden;">
+		<h4>A.</h4>
+		<input type="text" name="question[a]" />
+		<h4>B.</h4>
+		<input type="text" name="question[b]"/>
+		<h4>C.</h4>
+		<input type="text" name="question[c]"/>
+		<h4>D.</h4>
+		<input type="text" name="question[d]"/>
+	</div>
+
+	<input type="hidden" name="question[id]" value="<%= @survey.id %>"/>
+	<div class="btn-group">
+
+		<button class="btn btn-primary" name="question[over]" type="submit" value="0">Next!</button>
+		<button class="btn btn-primary" name="question[over]" type="submit" value="1" >Create Survey!</button>
+	</div>
+</form>
+
+<script>
+
+	function mcq_or_box()
+	{
+		ob = document.getElementById("cat")
+		category =ob.options[ob.selectedIndex].value;
+		if(category == "mcq_s" || category == "mcq_m")
+			document.getElementById("mcq").style.visibility = "visible";
+		else
+			document.getElementById("mcq").style.visibility = "hidden";
+
+
+	}
+
+
+</script>
+
+
+

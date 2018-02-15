@@ -1,0 +1,34 @@
+<% provide(:title, 'All survey') %>
+<h1>All responses</h1>
+
+<div>
+	<table class="table table-hover">
+    <thead>
+      <tr>
+      	<th>S.No</th>
+        <th>Survey Name</th>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>By</th>
+      </tr>
+    </thead>
+<%num =1 %>
+	<% @responses.each do |response| %>
+	
+    <tbody>
+      <tr>
+      <td><%=num%></td>
+      <td><%=(SurveySet.find((Que.find(response.Que_id)).SurveySet_id)).name%></td>
+        <td><%=(Que.find(response.Que_id)).desc%></td>
+        <td><%=response.response%></td>
+        <td><%=(User.find(response.User_id )).name%></td>
+      </tr>
+      <%num+=1%>
+      <%end%>
+    </tbody>
+  </table>
+
+	</div>
+	
+</ul>
+

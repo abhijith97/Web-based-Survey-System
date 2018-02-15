@@ -1,0 +1,85 @@
+<% provide(:title, @survey.name) %>
+<h1><%= @survey.name%></h1>
+
+<%i=0%>
+<form accept-charset="UTF-8" action="/save" class="new_user" id="new_user" method="post">
+	<input name="utf8" type="hidden" value="&#x2713;" />
+	<input name="authenticity_token" type="hidden"
+	value="NNb6+J/j46LcrgYUC60wQ2titMuJQ5lLqyAbnbAUkdo=" />
+	<ul class="users">
+		<% @questions.each do |question| %>
+		<li>
+			<h3><%=question.desc%></h3>
+
+
+			<% if question.category == "normal"%>
+			<label for="Response_response">Response</label>
+			<input id="user_name" name="response[<%=i%>][response]" type="text" />
+			<input type="hidden" name="response[<%=i%>][user]" value="<%= current_user.id %>" />
+			<input type="hidden" name="response[<%=i%>][id]" value="<%= question.id %>" />
+			<input type="hidden" name="response[<%=i%>][category]" value="normal" />
+			<%i+=1%>
+			<%end%>
+
+
+			<% if question.category == "mcq_s"%>
+			<div class="radio">
+				A.<label for="Response_response"><%=question.a%></label>
+				<input id="user_name" name="response[<%=i%>][response]" type="radio" value="<%=question.a%>"/>
+			</div>
+			<div class="radio">
+				B.<label for="Response_response"><%=question.b%></label>
+				<input id="user_name" name="response[<%=i%>][response]" type="radio" value="<%=question.b%>" />
+			</div>
+			<div class="radio">
+				C.<label for="Response_response"><%=question.c%></label>
+				<input id="user_name" name="response[<%=i%>][response]" type="radio" value="<%=question.c%>"/>
+			</div>
+			<div class="radio">
+				D.<label for="Response_response"><%=question.d%></label>
+				<input id="user_name" name="response[<%=i%>][response]" type="radio" value="<%=question.d%>"/>	
+			</div>
+
+			
+			<input type="hidden" name="response[<%=i%>][user]" value="<%= current_user.id %>" />
+			<input type="hidden" name="response[<%=i%>][id]" value="<%= question.id %>" />
+			<input type="hidden" name="response[<%=i%>][category]" value="mcq_s" />
+			<%i+=1%>
+			<%end%>
+
+			<% if question.category == "mcq_m"%>
+			<div class="radio">
+
+				A.<label for="Response_response"><%=question.a%></label>
+				<input id="user_name" name="response[<%=i%>][response1]" type="checkbox" value="<%=question.a%>"/>
+			</div>
+			<div class="radio">
+				B.<label for="Response_response"><%=question.b%></label>
+				<input id="user_name" name="response[<%=i%>][response2]" type="checkbox" value="<%=question.b%>" />
+			</div>
+			<div class="radio">
+				C.<label for="Response_response"><%=question.c%></label>
+				<input id="user_name" name="response[<%=i%>][response3]" type="checkbox" value="<%=question.c%>"/>
+			</div>
+			<div class="radio">
+				D.<label for="Response_response"><%=question.d%></label>
+				<input id="user_name" name="response[<%=i%>][response4]" type="checkbox" value="<%=question.d%>"/>	
+			</div>
+		
+			<input type="hidden" name="response[<%=i%>][user]" value="<%= current_user.id %>" />
+			<input type="hidden" name="response[<%=i%>][id]" value="<%= question.id %>" />
+			<input type="hidden" name="response[<%=i%>][category]" value="normal" />
+
+			<%i+=1%>
+			<%end%>
+
+
+		</li>
+
+		<% end %>
+	</ul>
+
+
+	<input class="btn btn-primary" name="commit" type="submit"
+	value="Submit the survey!" />
+</form>
